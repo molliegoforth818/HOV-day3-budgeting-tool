@@ -4,10 +4,12 @@
     <v-card-text>
       <v-form>
         <v-text-field
-          outlined
-          label="annualIncome"
+        @blur="handleChange"
           v-model="input"
           type="number"
+          outlined
+          color="pink"
+          filled
           prefix="$"
         />
       </v-form>
@@ -23,7 +25,12 @@ export default {
       input: +this.annualAmount,
     };
   },
-  methods: {},
+  methods: {
+    handleChange() {
+      this.$emit("income-change", +this.input)
+      console.log("yo")
+    }
+  },
 };
 </script>
 
