@@ -1,8 +1,8 @@
 <template>
-  <v-card>
+  <v-card color="pink lighten-5">
     <v-card-title class="pink--text">Annual Income</v-card-title>
     <v-card-text>
-      <v-form>
+      <v-form @submit.prevent="handleChange">
         <v-text-field
         @blur="handleChange"
           v-model="input"

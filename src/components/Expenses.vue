@@ -1,8 +1,10 @@
 <template>
-  <v-card>
-    <v-card-title class="pink--text">Monthly Expenses</v-card-title>
+  <v-card color="pink lighten-5">
+    <v-card-title class="pink--text">
+      Monthly Expenses
+    </v-card-title>
     <v-card-text>
-     <v-simple-table :height="200">
+      <v-simple-table :height="200">
         <template v-slot:default>
           <thead>
             <tr>
@@ -19,7 +21,7 @@
                 <v-btn
                   fab
                   x-small
-                  color="pink"
+                  color="pink lighten-3"
                   dark
                   @click="handleRemove(expense)"
                 >
@@ -57,7 +59,7 @@
             />
           </v-col>
           <v-col :sm="2">
-            <v-btn fab small color="pink" dark type="submit">
+            <v-btn fab small color="pink lighten-3" dark type="submit">
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </v-col>
@@ -73,18 +75,17 @@ export default {
   data() {
     return {
       name: "",
-      amount: null,
+      amount: null
     };
   },
   methods: {
     handleSubmit() {
-      this.$emit("expenses-add", { name: this.name, amount: +this.amount });
+      this.$emit("expense-added", { name: this.name, amount: +this.amount });
       this.name = "";
-      this.amount =null;
-      
+      this.amount = null;
     },
     handleRemove(expense) {
-        this.$emit("expense-remove", expense);
+      this.$emit("expense-removed", expense);
     }
   }
 };

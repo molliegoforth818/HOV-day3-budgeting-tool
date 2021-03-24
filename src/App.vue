@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="pa-6 blue-grey lighten-3">
+    <v-main class="pa-6 blue-grey lighten-4">
       <v-row justify="center">
         <v-col :cols="12" :md="8" :lg="4">
           <annual-income
@@ -19,7 +19,7 @@
         <v-col :cols="12" :lg="6">
           <expenses
             :expenses="monthlyExpenses"
-            @expense-add="handleExpensePlus"
+            @expense-added="handleExpenseAdded"
             @expense-removed="handleExpenseRemoved"
           />
         </v-col>
@@ -38,20 +38,20 @@
 import AnnualIncome from "./components/AnnualIncome";
 import Expenses from "./components/Expenses";
 import IncomeCard from "./components/IncomeCard";
-import PieChart from "./components/IncomeCard";
+import PieChart from "./components/PieChart";
 export default {
   components: { AnnualIncome, Expenses, IncomeCard, PieChart },
   data() {
     return {
       annualIncome: 0,
-      monthlyExpenses: [],
+      monthlyExpenses: []
     };
   },
   created() {
     const presentAnnual = localStorage.getItem("annualIncome");
     const presentExpenses = localStorage.getItem("monthlyExpenses");
     if (presentAnnual) {
-      this.annualIncome = parseFloat(presentExpenses);
+      this.annualIncome = parseFloat(presentAnnual);
     }
     if (presentExpenses) {
       this.monthlyExpenses = JSON.parse(presentExpenses);
@@ -62,22 +62,22 @@ export default {
       this.annualIncome = income;
       localStorage.setItem("annualIncome", income);
     },
-    handleExpensePlus(newExpense) {
+    handleExpenseAdded(newExpense) {
       this.monthlyExpenses.push(newExpense);
-      localStorage.setItem(
-        "montlyExpenses",
-        JSON.stringify(this.monthlyExpenses)
-      );
-    },
-    handleExpenseRemoved(expenseToRemove) {
-      this.monthlyExpenses = this.monthlyExpenses.filter((expenses) => {
-        return expenses !== expenseToRemove;
-      });
       localStorage.setItem(
         "monthlyExpenses",
         JSON.stringify(this.monthlyExpenses)
       );
     },
+    handleExpenseRemoved(expenseToRemove) {
+      this.monthlyExpenses = this.monthlyExpenses.filter(e => {
+        return e !== expenseToRemove;
+      });
+      localStorage.setItem(
+        "monthlyExpenses",
+        JSON.stringify(this.monthlyExpenses)
+      );
+    }
   },
   computed: {
     monthlyIncome() {
@@ -89,14 +89,14 @@ export default {
       }, 0);
     },
     annualExpenses() {
-      return this.monthlyExpenses * 12;
+      return this.totalMonthlyExpenses * 12;
     },
     monthlyNet() {
-      return this.monthlyIncome - this.totalMonthlyExpenses;
+      return (this.monthlyIncome - this.totalMonthlyExpenses).toFixed(2);
     },
     annualNet() {
-      return +(this.annualIncome - this.annualExpenses);
-    },
-  },
+      return +(this.annualIncome - this.annualExpenses).toFixed(2);
+    }
+  }
 };
 </script>
