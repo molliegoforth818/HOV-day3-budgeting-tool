@@ -1,25 +1,14 @@
 # budgeting-tool
 
-## Project setup
+## Project Learning Goals
 ```
-npm install
+-Utilize a component library
+-Use v-model to bind to form controls such as text inputs and select elements
+-Use the mounted lifecycle hook to call a method when a component enters the DOM
+-Add form validation to create a solid user experience
+
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Checkout it out! 
+https://hov-budgeting-tool.web.app/
 # HOV-day3-budgeting-tool
